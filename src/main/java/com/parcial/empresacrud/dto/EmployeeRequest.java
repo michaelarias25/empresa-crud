@@ -1,24 +1,16 @@
-package com.parcial.empresacrud.models;
+package com.parcial.empresacrud.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 
-@Entity
-@Table(name = "employees")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Builder
-public class Employee {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class EmployeeRequest {
 
     @NotBlank(message = "Name cannot be empty")
     private String name;
@@ -33,8 +25,6 @@ public class Employee {
     @Positive(message = "Salary must be greater than zero")
     private Double salary;
 
-    @ManyToOne
-    @JoinColumn(name = "department_id", nullable = false)
-    @JsonBackReference
-    private Department department;
+    @NotNull(message = "Department ID is required")
+    private Long departmentId;
 }
